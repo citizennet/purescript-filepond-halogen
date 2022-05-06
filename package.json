@@ -1,0 +1,15 @@
+{
+  "name": "filepond-halogen",
+  "version": "0.0.0",
+  "description": "FilePond Halogen implementation",
+  "author": "CitizenNet",
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {
+    "filepond": "4.9.5",
+    "filepond-plugin-file-validate-type": "1.2.4",
+    "filepond-plugin-get-file": "1.0.6",
+    "filepond-plugin-image-preview": "4.6.1",
+    "filepond-plugin-media-preview": "1.0.4"
+  }
+}
