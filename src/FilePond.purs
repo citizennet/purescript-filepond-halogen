@@ -5,7 +5,7 @@ module FilePond
   , FilePond
   , Progress
   , Status(..)
-  , URL
+  , URI
   , create
   , setDisabled
   ) where
@@ -27,7 +27,7 @@ import Web.File.File as Web.File.File
 import Web.HTML as Web.HTML
 
 -- | A synonym to clean up the long type of `URI _ _ _ _ _ _ _`.
-type URL
+type URI
   = URI.URI URI.UserInfo (URI.HostPortPair.HostPortPair URI.Host URI.Port) URI.Path URI.HierPath URI.Query URI.Fragment
 
 type Config uploadedFile
@@ -35,7 +35,7 @@ type Config uploadedFile
     -- The file id is appended to the `download` url when fetching uploaded files.
     -- We don't use a function for loading uploaded files as it would require a
     -- CORS-enabled endpoint, which we unfortunately don't have.
-    , download :: URL
+    , download :: URI
     , file :: Maybe uploadedFile
     -- FilePond stores file ids internally instead of a parametrized type so we
     -- need a way of converting an `uploadedFile` to a unique id.
@@ -157,13 +157,13 @@ create config element = do
       { acceptedFileTypes: config.mediaTypes
       , disabled: config.disabled
       , fileId: Data.Nullable.toNullable (map config.getId config.file)
-      , load: urlToString config.download
+      , load: uriToString config.download
       , process: toForeignProcessFunction config
       }
   Effect.Uncurried.runEffectFn2 _create internalConfig element
   where
-  urlToString :: URL -> String
-  urlToString =
+  uriToString :: URI -> String
+  uriToString =
     URI.URI.print
       { printUserInfo: identity
       , printHosts: URI.HostPortPair.print identity identity
