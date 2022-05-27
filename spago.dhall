@@ -3,7 +3,7 @@ A Halogen wrapper for the FilePond library, providing a component that works as
 a file picker/uploader.
 -}
 let
-  name = "form2"
+  name = "filepond-halogen"
 in
   { name
   , dependencies =
