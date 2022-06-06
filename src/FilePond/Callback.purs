@@ -20,6 +20,7 @@ module FilePond.Callback
   ) where
 
 import Pre
+
 import Data.Enum as Data.Enum
 import Data.Nullable as Data.Nullable
 import Effect.Uncurried as Effect.Uncurried
@@ -94,7 +95,7 @@ foreign import _onAddFileStart ::
     Unit
 
 {- FilePond instance throws an error. Optionally receives
-   file if error is related to a file object. -}
+file if error is related to a file object. -}
 onError ::
   forall uploadedFile.
   FilePond.FilePond uploadedFile ->
@@ -135,8 +136,8 @@ foreign import _onInit ::
     Unit
 
 {- File has been transformed by the transform plugin or
-   another plugin subscribing to the prepare_output filter.
-   It receives the file item and the output data. -}
+another plugin subscribing to the prepare_output filter.
+It receives the file item and the output data. -}
 onPrepareFile ::
   forall uploadedFile.
   FilePond.FilePond uploadedFile ->
@@ -314,9 +315,9 @@ foreign import _onUploadResponse ::
     Unit
 
 {- FilePond instance throws a warning. For instance
-   when the maximum amount of files has been reached.
-   Optionally receives file if error is related to a
-   file object. -}
+when the maximum amount of files has been reached.
+Optionally receives file if error is related to a
+file object. -}
 onWarning ::
   forall uploadedFile.
   FilePond.FilePond uploadedFile ->

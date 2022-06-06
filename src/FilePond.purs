@@ -11,6 +11,7 @@ module FilePond
   ) where
 
 import Pre
+
 import Data.Bounded.Generic as Data.Bounded.Generic
 import Data.Enum.Generic as Data.Enum.Generic
 import Data.Generic.Rep as Data.Generic.Rep
@@ -27,28 +28,28 @@ import Web.File.File as Web.File.File
 import Web.HTML as Web.HTML
 
 -- | A synonym to clean up the long type of `URI _ _ _ _ _ _ _`.
-type URI
-  = URI.URI URI.UserInfo (URI.HostPortPair.HostPortPair URI.Host URI.Port) URI.Path URI.HierPath URI.Query URI.Fragment
+type URI =
+  URI.URI URI.UserInfo (URI.HostPortPair.HostPortPair URI.Host URI.Port) URI.Path URI.HierPath URI.Query URI.Fragment
 
-type Config uploadedFile
-  = { disabled :: Boolean
-    -- The file id is appended to the `download` url when fetching uploaded files.
-    -- We don't use a function for loading uploaded files as it would require a
-    -- CORS-enabled endpoint, which we unfortunately don't have.
-    , download :: URI
-    , file :: Maybe uploadedFile
-    -- FilePond stores file ids internally instead of a parametrized type so we
-    -- need a way of converting an `uploadedFile` to a unique id.
-    , getId :: uploadedFile -> String
-    , mediaTypes :: Array Data.MediaType.MediaType
-    , upload :: (Progress -> Effect Unit) -> Web.File.File.File -> Aff (Either String uploadedFile)
-    }
+type Config uploadedFile =
+  { disabled :: Boolean
+  -- The file id is appended to the `download` url when fetching uploaded files.
+  -- We don't use a function for loading uploaded files as it would require a
+  -- CORS-enabled endpoint, which we unfortunately don't have.
+  , download :: URI
+  , file :: Maybe uploadedFile
+  -- FilePond stores file ids internally instead of a parametrized type so we
+  -- need a way of converting an `uploadedFile` to a unique id.
+  , getId :: uploadedFile -> String
+  , mediaTypes :: Array Data.MediaType.MediaType
+  , upload :: (Progress -> Effect Unit) -> Web.File.File.File -> Aff (Either String uploadedFile)
+  }
 
-type ErrorDescription
-  = { type :: String
-    , code :: Number
-    , body :: String
-    }
+type ErrorDescription =
+  { type :: String
+  , code :: Number
+  , body :: String
+  }
 
 data Event uploadedFile
   = AddFileProgressed { file :: Web.File.File.File, progress :: Number }
@@ -72,41 +73,42 @@ data Event uploadedFile
 
 foreign import data FilePond :: Type -> Type
 
-type ForeignProcessFunction
-  = Effect.Uncurried.EffectFn7
-      String -- fieldName
-      Web.File.File.File -- file
-      {} -- metadata
-      (Effect.Uncurried.EffectFn1 String Unit) -- onLoad
-      (Effect.Uncurried.EffectFn1 String Unit) -- onError
-      ForeignProgressFunction
-      (Effect Unit) -- onAbort
-      { abort :: Effect Unit }
+type ForeignProcessFunction =
+  Effect.Uncurried.EffectFn7
+    String -- fieldName
+    Web.File.File.File -- file
+    {} -- metadata
+    (Effect.Uncurried.EffectFn1 String Unit) -- onLoad
+    (Effect.Uncurried.EffectFn1 String Unit) -- onError
+    ForeignProgressFunction
+    (Effect Unit) -- onAbort
+    { abort :: Effect Unit }
 
-type ForeignProgressFunction
-  = Effect.Uncurried.EffectFn3
-      Boolean -- lengthComputable
-      Number -- loaded
-      Number -- total
-      Unit
+type ForeignProgressFunction =
+  Effect.Uncurried.EffectFn3
+    Boolean -- lengthComputable
+    Number -- loaded
+    Number -- total
+    Unit
 
-type InternalConfig uploadedFile
-  = { acceptedFileTypes :: Array Data.MediaType.MediaType
-    , disabled :: Boolean
-    , fileId :: Data.Nullable.Nullable String
-    , load :: String
-    , process :: FilePond uploadedFile -> ForeignProcessFunction
-    }
+type InternalConfig uploadedFile =
+  { acceptedFileTypes :: Array Data.MediaType.MediaType
+  , disabled :: Boolean
+  , fileId :: Data.Nullable.Nullable String
+  , load :: String
+  , process :: FilePond uploadedFile -> ForeignProcessFunction
+  }
 
 type Progress
   -- The `lengthComputable` flag indicates whether the resource has a length
   -- that can be calculated. If not, the `total` has no significant value.
   -- Setting this to `false` switches the FilePond loading indicator to infinite
   -- mode.
-  = { lengthComputable :: Boolean
-    , loaded :: Number
-    , total :: Number
-    }
+  =
+  { lengthComputable :: Boolean
+  , loaded :: Number
+  , total :: Number
+  }
 
 data Status
   = Empty
@@ -116,9 +118,7 @@ data Status
   | Ready
 
 derive instance genericStatus :: Data.Generic.Rep.Generic Status _
-
 derive instance eqStatus :: Eq Status
-
 derive instance ordStatus :: Ord Status
 
 instance enumStatus :: Enum Status where
