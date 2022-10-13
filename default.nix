@@ -17,8 +17,8 @@
       ];
 
       npmlock2nix = pkgs.callPackages self.inputs.npmlock2nix { };
-      foreign.FilePond.node_modules =
-        (npmlock2nix.node_modules { src = ./.; }) + /node_modules;
+      nodeModules = npmlock2nix.node_modules { src = ./.; };
+      foreign.FilePond.node_modules = nodeModules + /node_modules;
 
       ps = config.purs-nix.purs {
         inherit dependencies foreign;
@@ -35,6 +35,7 @@
             src.path = ./.;
             info = { inherit dependencies foreign; };
           };
+        filepond-halogen-nodeModules = nodeModules;
       };
 
       extra-shell-tools = [ (config.make-command { inherit ps; pkg = ./.; }) ];
