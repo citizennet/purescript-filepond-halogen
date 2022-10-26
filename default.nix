@@ -10,7 +10,7 @@
         maybe
         media-types
         nullable
-        self'.packages.pre
+        pre
         uri
         web-file
         web-html
