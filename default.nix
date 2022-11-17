@@ -30,12 +30,21 @@
     {
       packages = {
         filepond-halogen =
-          config.purs-nix.build {
+          (config.purs-nix.build {
             name = "filepond-halogen";
             src.path = ./.;
             info = { inherit dependencies foreign; };
-          };
-        filepond-halogen-nodeModules = nodeModules;
+          }).overrideAttrs (old: {
+            passthru = old.passthru // {
+              cssFiles = [
+                "${nodeModules}/node_modules/filepond/dist/filepond.css"
+                "${nodeModules}/node_modules/filepond-plugin-get-file/dist/filepond-plugin-get-file.css"
+                "${nodeModules}/node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+                "${nodeModules}/node_modules/filepond-plugin-media-preview/dist/filepond-plugin-media-preview.css"
+              ];
+            };
+          })
+        ;
       };
 
       extra-shell-tools = [ (config.make-command { inherit ps; pkg = ./.; }) ];
