@@ -1,5 +1,3 @@
-{ pkgs, npmlock2nix, ... }:
-
 {
   name = "filepond-halogen";
   srcs = [ "src" ];
@@ -16,6 +14,8 @@
     "web-file"
     "web-html"
   ];
-  foreign.FilePond.node_modules =
-    (npmlock2nix.node_modules { src = ./.; }) + /node_modules;
+  foreign.FilePond = {
+    type = "npm";
+    path = ./.;
+  };
 }
