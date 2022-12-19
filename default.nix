@@ -2,18 +2,18 @@
   perSystem = { config, self', inputs', system, pkgs, ... }:
 
     let
-      dependencies = [
-        "aff"
-        "effect"
-        "foreign"
-        "halogen"
-        "maybe"
-        "media-types"
-        "nullable"
-        "pre"
-        "uri"
-        "web-file"
-        "web-html"
+      dependencies = with config.purs-nix.ps-pkgs; [
+        aff
+        effect
+        config.purs-nix.ps-pkgs.foreign
+        halogen
+        maybe
+        media-types
+        nullable
+        pre
+        uri
+        web-file
+        web-html
       ];
 
       npmlock2nix = pkgs.callPackages self.inputs.npmlock2nix { };
