@@ -9,12 +9,15 @@ in
   , dependencies =
       [ "aff"
       , "effect"
+      , "enums"
       , "foreign"
       , "halogen"
-      , "maybe"
+      , "halogen-subscriptions"
       , "media-types"
       , "nullable"
       , "pre"
+      , "prelude"
+      , "uri"
       , "web-file"
       , "web-html"
       ]
