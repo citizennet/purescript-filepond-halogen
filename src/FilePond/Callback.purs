@@ -19,7 +19,7 @@ module FilePond.Callback
   , onWarning
   ) where
 
-import Pre
+import CitizenNet.Prelude
 
 import Data.Enum as Data.Enum
 import Data.Nullable as Data.Nullable

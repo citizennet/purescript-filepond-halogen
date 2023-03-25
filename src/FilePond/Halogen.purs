@@ -3,7 +3,7 @@ module FilePond.Halogen
   , subscribe
   ) where
 
-import Pre
+import CitizenNet.Prelude
 
 import FilePond as FilePond
 import FilePond.Callback as FilePond.Callback

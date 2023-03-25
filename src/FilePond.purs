@@ -10,7 +10,7 @@ module FilePond
   , setDisabled
   ) where
 
-import Pre
+import CitizenNet.Prelude
 
 import Data.Bounded.Generic as Data.Bounded.Generic
 import Data.Enum.Generic as Data.Enum.Generic
