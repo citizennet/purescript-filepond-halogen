@@ -14,7 +14,6 @@ import CitizenNet.Prelude
 
 import Data.Bounded.Generic as Data.Bounded.Generic
 import Data.Enum.Generic as Data.Enum.Generic
-import Data.Generic.Rep as Data.Generic.Rep
 import Data.MediaType as Data.MediaType
 import Data.Nullable as Data.Nullable
 import Data.Show.Generic as Data.Show.Generic
@@ -117,24 +116,24 @@ data Status
   | Busy
   | Ready
 
-derive instance genericStatus :: Data.Generic.Rep.Generic Status _
-derive instance eqStatus :: Eq Status
-derive instance ordStatus :: Ord Status
+derive instance Generic Status _
+derive instance Eq Status
+derive instance Ord Status
 
-instance enumStatus :: Enum Status where
+instance Enum Status where
   succ = Data.Enum.Generic.genericSucc
   pred = Data.Enum.Generic.genericPred
 
-instance boundedStatus :: Bounded Status where
+instance Bounded Status where
   top = Data.Bounded.Generic.genericTop
   bottom = Data.Bounded.Generic.genericBottom
 
-instance boundedEnumStatus :: BoundedEnum Status where
+instance BoundedEnum Status where
   cardinality = Data.Enum.Generic.genericCardinality
   toEnum = Data.Enum.Generic.genericToEnum
   fromEnum = Data.Enum.Generic.genericFromEnum
 
-instance showStatus :: Show Status where
+instance Show Status where
   show = Data.Show.Generic.genericShow
 
 foreign import _create ::
