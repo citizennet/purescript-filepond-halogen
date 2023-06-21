@@ -1,4 +1,6 @@
 {-
+{{GENERATED_DOC}}
+
 A Halogen wrapper for the FilePond library, providing a component that works as
 a file picker/uploader.
 -}
@@ -21,8 +23,9 @@ in
       , "web-file"
       , "web-html"
       ]
-  , packages = ../../packages.dhall
-  -- Due to a spago bug (see https://github.com/purescript/spago/issues/648)
-  -- `sources` are relative to root instead of config file.
-  , sources = [ "lib/${name}/src/**/*.purs" ]
+  -- This path is relative to config file
+  , packages = {{PACKAGES_DIR}}/packages.dhall
+  -- This path is relative to project root
+  -- See https://github.com/purescript/spago/issues/648
+  , sources = [ "{{SOURCES_DIR}}/src/**/*.purs" ]
   }
